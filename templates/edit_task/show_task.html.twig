@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EditQuiz{% endblock %}
+
+{% block body %}
+    <style>
+        .clearfix:after {
+            content: '';
+            display: table;
+            width: 100%;
+            clear: box;
+        }
+
+        .header {
+            background: #363636;
+        }
+
+        .header a {
+            color: #FFFFFF;
+            font-size: 20px;
+            float: right;
+            margin: 15px;
+        }
+
+        .header a:hover {
+            color: #727272;
+            text-decoration: none;
+        }
+
+        .header p {
+            float: left;
+            color: #FFFFFF;
+            font-size: 20px;
+            margin: 15px;
+        }
+
+        .table {
+            margin-top: 40px;
+        }
+
+        .quiz{
+            margin: 50px;
+            padding: 20px;
+        }
+
+        a{
+            margin-top: 20px;
+        }
+    </style>
+
+    <div class="container-fluid header clearfix">
+        <a href="{{ '/main' }}">Main page</a>
+    </div>
+
+    <div class="container">
+        <div class="quiz">
+            <h1><b>{{ task.task }}</b></h1>
+
+            <a href="{{ path('add_comment', {'id': task.id}) }}" class="btn btn-sm btn-warning">Add comment</a> <br>
+            <a href="{{ path('edit_status', {'id': task.id}) }}" class="btn btn-sm btn-info">Edit Status</a> <br>
+
+            <b>Comments: </b>
+                {% for comment in comments %}
+                        <p>{{ comment.comment }}</p>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a class="btn btn-sm btn-danger" href="{{ path('deleteComment', {'comment': comment.id}) }}">DeleteComment</a>
+                    {% endif %}
+                    <hr>
+                {% endfor %}
+
+        </div>
+    </div>
+{% endblock %}

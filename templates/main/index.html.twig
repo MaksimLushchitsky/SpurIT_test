@@ -1,0 +1,150 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello {{ app.user.email }}{% endblock %}
+
+{% block body %}
+    <style>
+        .clearfix:after {
+            content: '';
+            display: table;
+            width: 100%;
+            clear: box;
+        }
+
+        .header {
+            background: #363636;
+        }
+
+        .header a {
+            color: #FFFFFF;
+            font-size: 20px;
+            float: right;
+            margin: 15px;
+        }
+
+        .header a:hover {
+            color: #727272;
+            text-decoration: none;
+        }
+
+        .header p {
+            float: left;
+            color: #FFFFFF;
+            font-size: 20px;
+            margin: 15px;
+        }
+
+        .column {
+            background: white;
+            text-align: center;
+            margin: 50px;
+        }
+
+        .status{
+            border-bottom: 2px solid black;
+        }
+    </style>
+
+    <div class="container-fluid header clearfix">
+        <p>{{ app.user.username }}</p>
+        <a href="{{ '/deconnection' }}">Log out</a>
+
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ '/admin' }}">Create Task</a>
+        {% endif %}
+    </div>
+
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="column">
+                    <div class="status">
+                        <h6>Todo</h6>
+                    </div>
+                    <table class="table table-bordered">
+                        {% for task in tasks %}
+                            {% if task.status == 'Todo' %}
+                                <tr>
+                                    <td>
+                                        {{ task.task }}
+                                    </td>
+                                    <td>
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                            <a class="btn btn-sm btn-danger" href="{{ path('delete', {'task': task.id}) }}">Delete</a>
+                                            <a class="btn btn-sm btn-info" href="{{ path('show', {'id': task.id}) }}">Edit</a>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {{ task.comments|length }}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="column">
+                    <div class="status">
+                        <h6>Doing</h6>
+                    </div>
+                    <table class="table table-bordered">
+                        {% for task in tasks %}
+                            {% if task.status == 'Doing' %}
+                                <tr>
+                                    <td>
+                                        {{ task.task }}
+                                    </td>
+                                    <td>
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                            <a class="btn btn-sm btn-danger" href="{{ path('delete', {'task': task.id}) }}">Delete</a>
+                                            <a class="btn btn-sm btn-info" href="{{ path('show', {'id': task.id}) }}">Edit</a>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {{ task.comments|length }}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+
+
+            <div class="col-md-4">
+                <div class="column">
+                    <div class="status">
+                        <h6>Done</h6>
+                    </div>
+                    <table class="table table-bordered">
+                    {% for task in tasks %}
+                        {% if task.status == 'Done' %}
+                                <tr>
+                                    <td>
+                                        {{ task.task }}
+                                    </td>
+                                    <td>
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                            <a class="btn btn-sm btn-danger" href="{{ path('delete', {'task': task.id}) }}">Delete</a>
+                                            <a class="btn btn-sm btn-info" href="{{ path('show', {'id': task.id}) }}">Edit</a>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {{ task.comments|length }}
+                                    </td>
+                                </tr>
+                        {% endif %}
+                    {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

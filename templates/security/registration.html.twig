@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+    <style>
+        .clearfix:after {
+            content: '';
+            display: table;
+            width: 100%;
+            clear: box;
+        }
+
+        .header {
+            background: #363636;
+        }
+
+        .header a {
+            color: #FFFFFF;
+            font-size: 20px;
+            float: right;
+            margin: 15px;
+        }
+
+        .header a:hover {
+            color: #727272;
+            text-decoration: none;
+        }
+    </style>
+
+    <div class="container-fluid header clearfix">
+        <a href="{{ '/connection' }}">Login</a>
+    </div>
+
+    <div class="container" style="margin-top: 50px">
+        <h1 style="text-align: center">Registration</h1>
+
+        <br>
+
+        {{ form_start(form) }}
+
+        {{ form_row(form.email, {'label': 'Email', 'attr': {'class': 'form-control', 'placeholder': 'email'}}) }}
+        <br>
+        {{ form_row(form.username, {'label': 'Username', 'attr': {'class': 'form-control', 'placeholder': 'Username'}}) }}
+        <br>
+        {{ form_row(form.password, {'label': 'Password', 'attr': {'class': 'form-control', 'placeholder': 'Password'}}) }}
+        <br>
+        {{ form_row(form.confirm_password, {'label': 'Confirm password', 'attr': {'class': 'form-control', 'placeholder': 'Confirm password'}}) }}
+        <br>
+
+        <div class="form-group" style="text-align: center">
+            <button type="submit" class="btn btn-success col-md-2">Register</button>
+        </div>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

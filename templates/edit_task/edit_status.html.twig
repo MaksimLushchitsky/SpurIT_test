@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello!{% endblock %}
+
+{% block body %}
+
+    <style>
+        .container{
+            margin-top: 50px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        button{
+            margin-top: 30px;
+        }
+    </style>
+
+    <div class="container">
+        <h2>Edit new status:</h2>
+        {{ form_start(form) }}
+        {{ form_row(form.status) }}
+        <button type="submit" class="btn btn-success col-md-2">Save</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
